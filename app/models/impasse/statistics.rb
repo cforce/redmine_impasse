@@ -6,7 +6,7 @@ module Impasse
 
     def self.summary_default(test_plan_id, test_suite_id=nil)
       conditions = { :test_plan_id => test_plan_id }
-      concatinated_path = case configurations[Rails.env]['adapter']
+      concatinated_path = case Rails.configuration.database_configuration['adapter']
                           when /mysql/
                             "CONCAT(:path, head.id, '.')"
                           when /sqlserver/
