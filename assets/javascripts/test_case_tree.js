@@ -421,9 +421,17 @@ jQuery(document).ready(function ($) {
 	})
 	.bind("select_node.jstree", function(e, data) {
 	    $("#test-case-view").block(impasse_loading_options());
-	    var node_id = data.rslt.obj.attr("id").replace("node_", "");
-	    location.replace("#testcase-" + node_id);
-	    show_test_case(node_id);
+	    var node = data.rslt.obj;
+	    var node_id = node.attr("id").replace("node_", "");
+	    // test_project has nothing to show in the test case view
+	    if (node.attr('rel') == 'test_project') {
+		location.replace("#");
+		$("#test-case-view").html("");
+	    }
+	    else {
+		location.replace("#testcase-" + node_id);
+		show_test_case(node_id);
+	    }
 	});
 
     $("#testcase-dialog .add-test-step").live("click", function() {

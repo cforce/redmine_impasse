@@ -319,8 +319,11 @@ class ImpasseTestCaseController < ImpasseAbstractController
 
     if node.is_test_case?
       test_case = Impasse::TestCase.find(node_params[:id])
-    else
+    elsif node.is_test_suite?
       test_case = Impasse::TestSuite.find(node_params[:id])
+    else
+      # test_project does not have a dedicated model
+      test_case = nil
     end
 
     [node, test_case]
